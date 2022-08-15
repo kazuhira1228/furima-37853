@@ -7,57 +7,52 @@
 | nickname           | string | null: false |
 | email              | string | null: false |
 | encrypted_password | string | null: false |
+| name               | string | null: false |
+| birthday           | date   | null: false |
 
 ### Association
 
-- has_many :record_users
-- has_many :records, through: :record_users
+- has_many :records
 - has_many :items
+
 
 ## items テーブル
 
-| Column   | Type   | Options     |
-| -------- | ------ | ----------- |
-| image    | string | null: false |
-| name     | string | null: false |
-| content  | text   | null: false |
-| category | string | null: false |
+| Column        | Type   | Options     |
+| ------------- | ------ | ----------- |
+| name          | string | null: false |
+| content       | text   | null: false |
+| category      | string | null: false |
+| condition     | string | null: false |
+| postage       | string | null: false |
+| region        | string | null: false |
+| shopping_date | string | null: false |
+| price         | integer | null: false |
 
 ### Association
 
-- belongs to :users
-- belongs to :records
+- belongs to :user
+- belongs to :record
 
-## record_users テーブル
 
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| user   | references | null: false, foreign_key: true |
-| record | references | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :record
-- belongs_to :user
-
-## record テーブル
+## records テーブル
 
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
-| buyer   | string     | null: false                    |
+| user    | references | null: false, foreign_key: true |
 | item    | references | null: false, foreign_key: true |
 
 ### Association
 
-- has_many :record_users
-- has_many :users, through: :record_users
-- belongs_to :items
+- belongs_to :user
+- belongs_to :item
+
 
 ## destination テーブル
 | Column         | Type       | Options                  |
 | -------------- | ---------- | ------------------------ |
 | post_code      | string     | null: false              |
-| prefecture     | string     | null: false              |
+| region         | string     | null: false              |
 | municipality   | string     | null: false              |
 | address        | string     | null: false              |
 | building_name  | string     | null: false              |
@@ -65,4 +60,4 @@
 
 ### Association
 
-- belongs_to :records
+- belongs_to :record
