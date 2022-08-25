@@ -32,18 +32,18 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Content is too long (maximum is 1000 characters)")
       end
-      it 'category_idは空では保存できない' do
-        @item.category_id = ''
+      it 'category_idは1では保存できない' do
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
-      it 'condition_idは空では保存できない' do
-        @item.condition_id = ''
+      it 'condition_idは1では保存できない' do
+        @item.condition_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition can't be blank")
       end
-      it 'postage_idは空では保存できない' do
-        @item.postage_id = ''
+      it 'postage_idは1では保存できない' do
+        @item.postage_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Postage can't be blank")
       end
@@ -52,8 +52,8 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Region can't be blank")
       end
-      it 'shopping_date_idは空では保存できない' do
-        @item.shopping_date_id = ''
+      it 'shopping_date_idは1では保存できない' do
+        @item.shopping_date_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Shopping date can't be blank")
       end
@@ -71,6 +71,11 @@ RSpec.describe Item, type: :model do
         @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not included in the list")
+      end
+      it 'priceは全角では保存できない' do
+        @item.price = '３００'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
       end
     end
   end

@@ -1,5 +1,5 @@
 class Item < ApplicationRecord
-            
+  validates :image,            presence: true
   validates :item_name,        presence: true, length: { maximum: 40 }
   validates :content,          presence: true, length: { maximum: 1000 }
   validates :category_id,      presence: true
@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   validates :postage_id,       presence: true
   validates :region_id,        presence: true
   validates :shopping_date_id, presence: true
-  validates :price,            presence: true, format: { with: /\A[0-9]+\z/ }
+  validates :price,            presence: true, numericality: { only_integer: true }
   validates_inclusion_of :price, in:300..9999999
 
   belongs_to :user
