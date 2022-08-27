@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   before_action :move_to_index, except: :index
 
   def index
-    # @item = Item.all  補足：商品一覧機能の実装で記述する部分。
+    @items = Item.order("created_at DESC")
   end
 
   def new
