@@ -1,6 +1,6 @@
 class RecordsController < ApplicationController
   before_action :authenticate_user!, only: :index
-  before_action :test, only: :index
+  before_action :prevent_url, only: :index
 
   def index
     @record_destination = RecordDestination.new
@@ -34,7 +34,7 @@ class RecordsController < ApplicationController
     )
   end
 
-  def test
+  def prevent_url
     @item = Item.find(params[:item_id])
     if @item.user_id == current_user.id  ||  @item.records.present?
       redirect_to root_path
