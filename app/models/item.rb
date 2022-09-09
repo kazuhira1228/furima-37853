@@ -11,6 +11,7 @@ class Item < ApplicationRecord
   validates_inclusion_of :price, in:300..9999999
 
   belongs_to :user
+  has_many :records
   has_one_attached :image
 
   extend ActiveHash::Associations::ActiveRecordExtensions
