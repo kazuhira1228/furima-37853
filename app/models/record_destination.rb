@@ -1,6 +1,6 @@
 class RecordDestination
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :post_code, :region_id, :municipality, :address, :building_name, :phone_number
+  attr_accessor :user_id, :item_id, :post_code, :region_id, :municipality, :address, :building_name, :phone_number, :token
 
   with_options presence: true do
     validates :user_id
@@ -10,6 +10,7 @@ class RecordDestination
     validates :municipality
     validates :address
     validates :phone_number, format: {with: /[0-9]{10,11}/, message: "is invalid"}
+    validates :token
   end
 
   extend ActiveHash::Associations::ActiveRecordExtensions

@@ -50,7 +50,7 @@ class ItemsController < ApplicationController
   end
 
   def url_direct_hit_prevention
-    if @item.user.id != current_user.id
+    if @item.user.id != current_user.id || @item.records != nil
       redirect_to root_path
     end
   end
