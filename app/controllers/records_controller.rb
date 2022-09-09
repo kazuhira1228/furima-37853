@@ -1,15 +1,14 @@
 class RecordsController < ApplicationController
   before_action :authenticate_user!, only: :index
+  before_action :set_record, only: [:index, :create]
   before_action :prevent_url, only: :index
 
   def index
     @record_destination = RecordDestination.new
-    @item = Item.find(params[:item_id])
   end
 
   def create
     @record_destination = RecordDestination.new(recordDestination_params)
-    @item = Item.find(params[:item_id])
     if @record_destination.valid?
       pay_item
       @record_destination.save
@@ -20,6 +19,10 @@ class RecordsController < ApplicationController
   end
 
   private
+
+  def set_record
+    @item = Item.find(params[:item_id])
+  end
 
   def recordDestination_params
     params.require(:record_destination).permit(:post_code, :region_id, :municipality, :address, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
@@ -35,7 +38,6 @@ class RecordsController < ApplicationController
   end
 
   def prevent_url
-    @item = Item.find(params[:item_id])
     if @item.user_id == current_user.id  ||  @item.records.present?
       redirect_to root_path
     end

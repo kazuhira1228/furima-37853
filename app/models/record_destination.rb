@@ -9,7 +9,7 @@ class RecordDestination
     validates :region_id
     validates :municipality
     validates :address
-    validates :phone_number, format: {with: /[0-9]{10,11}/, message: "is invalid"}
+    validates :phone_number, format: {with: /\A([0-9]{11,12})\z/, message: "is invalid"}
     validates :token
   end
 

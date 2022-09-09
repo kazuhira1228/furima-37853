@@ -6,7 +6,7 @@ RSpec.describe RecordDestination, type: :model do
       user = FactoryBot.create(:user)
       item = FactoryBot.create(:item)
       @record_destination = FactoryBot.build(:record_destination, user_id: user.id, item_id: item.id)
-      sleep 0.5
+      sleep 1.0
     end
 
     context '内容に問題がない場合' do
@@ -62,6 +62,16 @@ RSpec.describe RecordDestination, type: :model do
       end
       it '電話番号にハイフンがあると保存できない' do
         @record_destination.phone_number = '123-456-7890'
+        @record_destination.valid?
+        expect(@record_destination.errors.full_messages).to include("Phone number is invalid")
+      end
+      it '電話番号が10桁未満では保存できない' do
+        @record_destination.phone_number = 123456789
+        @record_destination.valid?
+        expect(@record_destination.errors.full_messages).to include("Phone number is invalid")
+      end
+      it '電話番号が12桁以上では保存できない' do
+        @record_destination.phone_number = 12345678901234
         @record_destination.valid?
         expect(@record_destination.errors.full_messages).to include("Phone number is invalid")
       end
