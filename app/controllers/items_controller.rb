@@ -50,7 +50,7 @@ class ItemsController < ApplicationController
   end
 
   def prevent_url
-    if @item.user.id != current_user.id || @item.records != nil
+    if @item.user.id != current_user.id  ||  @item.records.present?
       redirect_to root_path
     end
   end
